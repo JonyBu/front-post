@@ -6,7 +6,7 @@ const Header = () => (
     <LinkContainer to="/" exact>
       <button className="btn btn-primary">Home</button>
     </LinkContainer>
-    <LinkContainer to="/formulario">
+    <LinkContainer to="/formulario/0">
     <button className="btn btn-primary">Nuevo</button>
     </LinkContainer>
   </nav>

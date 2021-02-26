@@ -4,12 +4,9 @@ import axios from "axios";
 function Detalle(props) {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState();
-  const [id, setId] = useState();
+  const [id] = useState(props.match.params.id);
 
   useEffect(() => {
-
-    setId(props.match.params.id)
-    
     axios
       .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
       .then(function (response) {
@@ -17,14 +14,13 @@ function Detalle(props) {
       })
       .catch(function (err) {
         setError(err.message)
-        console.log(err);
       });
     }, []
   
   );
 
   return (
-    id==='0'? 
+    error !== undefined? 
     <div className="mt-5">
       <h3 className=" text-center">{error}</h3>
     </div>

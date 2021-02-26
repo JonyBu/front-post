@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect , useCallback } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
@@ -6,44 +6,40 @@ function Formulario(props) {
   const { register, handleSubmit } = useForm();
   const [posts, setPosts] = useState([]);
   const [success, setSuccess] = useState(false);
-  const [idPost, setIdPost] = useState('0');
+  const [idPost] = useState(props.match.params.id);
   const [es, setEs] = useState();
 
-  useEffect(()=>{
-    if (props.match.params.id===undefined) {
-      setIdPost('0')
-      setEs('nuevo agregado')
-    }else{
-      setIdPost(props.match.params.id)
-      setEs('editado')
-    }
-  },[])
+  const estado = useCallback( () => {
+    idPost === "0" ? setEs("nuevo agregado") : setEs("editado");
+  })
+
+  useEffect(() => {
+    estado()
+  }, [estado]);
 
   const onSubmit = (data) => {
-    idPost==='0'||undefined?   
-    (axios
-      .post("https://jsonplaceholder.typicode.com/posts", data)
-      .then(function (response) {
-        setPosts(response.data);
-        setSuccess(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-      }))
-      :
-      (axios
-      .put(`https://jsonplaceholder.typicode.com/posts/${idPost}`, data)
-      .then(function (response) {
-        setPosts(response.data);
-        setSuccess(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-      }))
-      
+    idPost === "0"
+      ? axios
+          .post("https://jsonplaceholder.typicode.com/posts", data)
+          .then(function (response) {
+            setPosts(response.data);
+            setSuccess(true);
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+      : axios
+          .put(`https://jsonplaceholder.typicode.com/posts/${idPost}`, data)
+          .then(function (response) {
+            setPosts(response.data);
+            setSuccess(true);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
   };
 
-  return  success ? (
+  return success ? (
     <div className="card border-success m-3">
       <div class="card-header">
         <h5 className="card-title">{posts.title}</h5>

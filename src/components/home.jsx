@@ -25,9 +25,9 @@ function Home() {
   return (
     <div className="card-body">
       <table className="table">
-        {posts.map((post, i) => {
+        {posts.map((post) => {
           return (
-            <tbody key={i}>
+            <tbody key={post.id}>
               <tr>
                 <td>{post.title}</td>
                 <td>
