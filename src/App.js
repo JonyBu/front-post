@@ -6,8 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/header";
 import Home from "./components/home";
 import Detalle from "./components/detalle";
-import FormularioNuevo from "./components/formularioNuevo";
-import FormularioEdicion from "./components/formularioEdicion";
+import Formulario from "./components/formulario";
 
 function App() {
   return (
@@ -15,9 +14,9 @@ function App() {
       <Header />
       <Switch>
         <Route path="/" component={Home} exact/>
-        <Route path="/detalle" component={Detalle} />
-        <Route path="/formularioNuevo" component={FormularioNuevo} />
-        <Route path="/formularioEdicion" component={FormularioEdicion} />
+        <Route path="/detalle/:id" component={Detalle} />
+        <Route path="/formulario/:id" component={Formulario} />
+        <Route path="/formulario" component={Formulario} />
       </Switch>
     </Router>
   );
