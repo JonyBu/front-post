@@ -16,10 +16,9 @@ function Home() {
       });
   }, []);
 
-  function eliminar(id) {
-    axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
-    const idToUpdate = id;
-    const postsUpdated = posts.filter(({ id }) => id !== idToUpdate);
+  function eliminar(idPost) {
+    axios.delete(`https://jsonplaceholder.typicode.com/posts/${idPost}`);
+    const postsUpdated = posts.filter(({ id }) => id !== idPost);
     setPosts(postsUpdated);
   }
 
